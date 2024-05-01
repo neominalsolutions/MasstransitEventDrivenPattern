@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Messaging.Events
 {
-  public class TaskAssignedEvent
+  public class AssignTaskCommand
   {
     public string TaskId { get; set; }
+    public int EstimatedHour { get; set; }
     public string EmployeeId { get; set; }
 
   }

@@ -18,6 +18,8 @@ var builder = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args).Confi
     config.UsingRabbitMq((context, cfg) =>
     {
       cfg.Host(hostContext.Configuration.GetConnectionString("RabbitMq"));
+
+      // Command olarak gönderildiği için Queue belirttik.
       cfg.ReceiveEndpoint(RabbitMqSettings.TaskAssignedQueue, e => e.ConfigureConsumer<TaskAssigmentConsumer>(context));
     });
 

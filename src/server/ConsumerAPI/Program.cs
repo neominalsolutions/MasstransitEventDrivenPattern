@@ -13,15 +13,16 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(config =>
 {
-  config.AddConsumer<TaskAssigmentConsumer>();
+  config.AddConsumer<TaskAssignedConsumer>();
 
   config.UsingRabbitMq((context, config) =>
   {
     config.Host(builder.Configuration.GetConnectionString("RabbitMq"));
-    config.ReceiveEndpoint(RabbitMqSettings.TaskAssignedQueue, e =>
+
+    // event olduðu için queue belirtmeye gerek yok
+    config.ReceiveEndpoint(e =>
     {
-      // rabbitmq context IBusRegisterationContext için consumer tanýmý yaptýk.
-      e.ConfigureConsumer<TaskAssigmentConsumer>(context);
+      e.ConfigureConsumer<TaskAssignedConsumer>(context);
     });
   });
 
